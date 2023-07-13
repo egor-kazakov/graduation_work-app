@@ -29,19 +29,19 @@ disable :protection
 # there is no expectations to be able to use DDB for test/dev 
  
 configure :production do
-  set :redishost, "redis-server"
+  set :redishost, ENV['REDIS_SERVER_ENDPOINT']
   set :port, 4567
-  set :yelbdbhost => "yelb-db"
-  set :yelbdbport => 5432
+  set :yelbdbhost => ENV['YELB_DB_SERVER_ENDPOINT']
+  set :yelbdbport => ENV['YELB_DB_SERVER_PORT']
   set :yelbddbrestaurants => ENV['YELB_DDB_RESTAURANTS']
   set :yelbddbcache => ENV['YELB_DDB_CACHE']
   set :awsregion => ENV['AWS_REGION']
 end
 configure :test do
-  set :redishost, "redis-server"
+  set :redishost, ENV['REDIS_SERVER_ENDPOINT']
   set :port, 4567
-  set :yelbdbhost => "yelb-db"
-  set :yelbdbport => 5432
+  set :yelbdbhost => ENV['YELB_DB_SERVER_ENDPOINT']
+  set :yelbdbport => ENV['YELB_DB_SERVER_PORT']
   set :yelbddbrestaurants => ENV['YELB_DDB_RESTAURANTS']
   set :yelbddbcache => ENV['YELB_DDB_CACHE']
   set :awsregion => ENV['AWS_REGION']
@@ -59,7 +59,7 @@ configure :custom do
   set :redishost, ENV['REDIS_SERVER_ENDPOINT']
   set :port, 4567
   set :yelbdbhost => ENV['YELB_DB_SERVER_ENDPOINT']
-  set :yelbdbport => 5432
+  set :yelbdbport => ENV['YELB_DB_SERVER_PORT']
   set :yelbddbrestaurants => ENV['YELB_DDB_RESTAURANTS']
   set :yelbddbcache => ENV['YELB_DDB_CACHE']
   set :awsregion => ENV['AWS_REGION']
