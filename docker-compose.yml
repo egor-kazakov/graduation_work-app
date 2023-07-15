@@ -30,6 +30,8 @@ services:
   test:
     image: curlimages/curl:7.73.0
     command: /bin/sh -c "sleep 20 && curl -s http://yelb-ui/ -i -vvv"
+    depends_on:
+      - yelb-ui
     networks:
       - yelb-network
 
