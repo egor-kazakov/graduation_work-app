@@ -20,7 +20,7 @@ lint-yaml:
 
 lint-helm:
   stage: lint
-  image: k8s-yc:1.24.15
+  image: alpine/k8s:1.24.15
   variables:
     KUBECONFIG: /tmp/.kubeconfig
   script:
