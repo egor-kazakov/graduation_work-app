@@ -91,7 +91,8 @@ deploy:
         --set appserver.imageTag=$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
         --set db.host=$APP_DB
         --set ingress.host=$APP_URL
-        --namespace $CI_PROJECT_PATH_SLUG-$ENVIRONMENT
+        --namespace $CI_PROJECT_PATH_SLUG
+        --create-namespace
         --wait
         --timeout 300s
         --atomic
