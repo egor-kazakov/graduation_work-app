@@ -83,14 +83,14 @@ deploy:
     - ./yc config set cloud-id $YC_CLOUD_ID
     - ./yc config set folder-id $YC_FOLDER_ID
     - ./yc managed-kubernetes cluster get-credentials k8s-cluster --external
+    - export DB_HOST=$(yc postgresql cluster get k8s-psql-cluster | head -1 | awk '{ print $2 }')
   script:
     - helm upgrade --install $CI_PROJECT_PATH_SLUG .helm
         --set ui.image=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/yelb-ui
         --set ui.imageTag=$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
         --set appserver.image=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/yelb-appserver
         --set appserver.imageTag=$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
-        --set db.host=$APP_DB
-        --set ingress.host=$APP_URL
+        --set db.host=c-$DB_HOST.rw.mdb.yandexcloud.net
         --namespace $CI_PROJECT_PATH_SLUG
         --create-namespace
         --wait
