@@ -27,12 +27,12 @@ lint-helm:
 build yelb-ui:
   stage: build
   script:
-    - docker build -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/ui:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA ./yelb-ui
+    - docker build -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/yelb-ui:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA ./yelb-ui
 
 build yelb-appserver:
   stage: build
   script:
-    - docker build -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/appserver:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA ./yelb-appserver
+    - docker build -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/yelb-appserver:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA ./yelb-appserver
 
 test:
   stage: test
@@ -61,7 +61,7 @@ push yelb-ui:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
   script:
-    - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/ui:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/yelb-ui:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
   only:
     - master
 
@@ -70,7 +70,7 @@ push yelb-appserver:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
   script:
-    - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/appserver:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/yelb-appserver:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
   only:
     - master
 
@@ -84,9 +84,9 @@ deploy:
     - yc managed-kubernetes cluster get-credentials k8s-cluster --external
   script:
     - helm upgrade --install $CI_PROJECT_PATH_SLUG .helm
-        --set ui.image=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/ui
+        --set ui.image=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/yelb-ui
         --set ui.imageTag=$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
-        --set appserver.image=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/appserver
+        --set appserver.image=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/yelb-appserver
         --set appserver.imageTag=$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
         --set db.host=$APP_DB
         --set ingress.host=$APP_URL
