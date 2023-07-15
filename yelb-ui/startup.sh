@@ -11,12 +11,12 @@ if [ -z "$YELB_APPSERVER_ENDPOINT" ]; then YELB_APPSERVER_ENDPOINT="http://yelb-
 
 sed -i -- 's#/usr/share/nginx/html#/clarity-seed/'$UI_ENV'/dist#g' $NGINX_CONF
 
-# this adds the reverse proxy configuration to nginx 
-# everything that hits /api is proxied to the app server     
+# this adds the reverse proxy configuration to nginx
+# everything that hits /api is proxied to the app server
 if ! grep -q "location /api" "$NGINX_CONF"; then
     eval "cat <<EOF
     location /api {
-        proxy_pass http://${YELB_APPSERVER_ENDPOINT}/api;
+        proxy_pass "$YELB_APPSERVER_ENDPOINT"/api;
         proxy_http_version 1.1;
     }
     gzip on;
@@ -29,5 +29,3 @@ EOF
 fi
 
 nginx -g "daemon off;" 
-
-
