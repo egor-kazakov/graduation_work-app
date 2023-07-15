@@ -1,4 +1,4 @@
-version: '3.0'
+version: "3.0"
 services:
   yelb-ui:
     image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/ui:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
@@ -6,19 +6,33 @@ services:
       - yelb-appserver
     ports:
       - 80:80
+    networks:
+      - yelb-network
 
   yelb-appserver:
     image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/appserver:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
     depends_on:
       - redis-server
       - yelb-db
+    networks:
+      - yelb-network
 
   redis-server:
     image: redis:4.0.2
+    networks:
+      - yelb-network
 
   yelb-db:
     build: ./yelb-db
+    networks:
+      - yelb-network
 
   test:
     image: curlimages/curl:7.73.0
     command: /bin/sh -c "sleep 20 && curl -s http://yelb-ui/ -i -vvv"
+    networks:
+      - yelb-network
+
+networks:
+  yelb-network:
+    driver: bridge
