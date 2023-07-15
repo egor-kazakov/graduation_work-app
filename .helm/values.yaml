@@ -1,10 +1,13 @@
 ---
+# Registry
+imagePullSecret: cicd-gitlab-registry
+
 # Frontend
 ui:
   replicaCount: 2
 
   image: mreferre/yelb-ui
-  imageTag: "0.10"
+  imageTag: "0.7"
 
   resources:
     requests:
