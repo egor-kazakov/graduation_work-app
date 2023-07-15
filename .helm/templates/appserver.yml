@@ -2,35 +2,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}-ui-deployment
-spec:
-  replicas: {{ .Values.ui.replicaCount | default 2 }}
-  selector:
-    matchLabels:
-      app: {{ .Chart.Name }}-ui
-  strategy:
-    rollingUpdate:
-      maxSurge: 10%
-      maxUnavailable: 10%
-    type: RollingUpdate
-  template:
-    metadata:
-      labels:
-        app: {{ .Chart.Name }}-ui
-    spec:
-      containers:
-        - image: {{ .Values.ui.image }}:{{ .Values.ui.imageTag }}
-          name: {{ .Chart.Name }}-ui
-          ports:
-            - containerPort: 80
-          resources:
-            {{- toYaml .Values.ui.resources | nindent 12 }}
-      imagePullSecrets:
-        - name: {{ .Values.imagePullSecret }}
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: {{ .Chart.Name }}-appserver-deployment
 spec:
   replicas: {{ .Values.appserver.replicaCount | default 2 }}
@@ -71,28 +42,4 @@ spec:
             {{- toYaml .Values.appserver.resources | nindent 12 }}
       imagePullSecrets:
         - name: {{ .Values.imagePullSecret }}
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: redis-server
-  labels:
-    app: redis-server
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: redis-server
-  template:
-    metadata:
-      labels:
-        app: redis-server
-    spec:
-      containers:
-        - image: redis:4.0.2
-          name: redis-server
-          ports:
-            - containerPort: 6379
-          resources:
-            {{- toYaml .Values.redis.resources | nindent 12 }}
 ...
