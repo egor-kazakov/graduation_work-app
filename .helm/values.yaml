@@ -1,0 +1,53 @@
+---
+# Frontend
+ui:
+  replicaCount: 2
+
+  image: mreferre/yelb-ui
+  imageTag: "0.10"
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+  ingress:
+    host: yelb.s053278.ru
+
+# Backend
+appserver:
+  replicaCount: 2
+
+  image: c8h11no2/yelb-appserver-6432
+  imageTag: "0.1"
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+# Redis
+redis:
+  replicaCount: 2
+
+  image: "redis"
+  imageTag: "4.0.2"
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+# Database (PostgreSQL)
+db:
+  host: yelb-db
+  port: 6432
