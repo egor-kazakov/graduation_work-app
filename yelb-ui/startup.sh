@@ -6,7 +6,8 @@ cd clarity-seed
 # this is needed for the ECS service discovery given the app works by calling host names and not FQDNs
 # a search domain can't be added to the container when using the awsvpc mode 
 # and the awsvpc mode is needed for A records (bridge only supports SRV records) 
-if [ $SEARCH_DOMAIN ]; then echo "search ${SEARCH_DOMAIN}" >> /etc/resolv.conf; fi 
+if [ "$SEARCH_DOMAIN" ]; then echo "search ${SEARCH_DOMAIN}" >> /etc/resolv.conf; fi 
+if [ -z "$YELB_APPSERVER_ENDPOINT" ]; then YELB_APPSERVER_ENDPOINT="http://yelb-appserver:4567"; fi
 
 sed -i -- 's#/usr/share/nginx/html#/clarity-seed/'$UI_ENV'/dist#g' $NGINX_CONF
 
@@ -15,7 +16,7 @@ sed -i -- 's#/usr/share/nginx/html#/clarity-seed/'$UI_ENV'/dist#g' $NGINX_CONF
 if ! grep -q "location /api" "$NGINX_CONF"; then
     eval "cat <<EOF
     location /api {
-        proxy_pass http://yelb-appserver:4567/api;
+        proxy_pass http://${YELB_APPSERVER_ENDPOINT}/api;
         proxy_http_version 1.1;
     }
     gzip on;
