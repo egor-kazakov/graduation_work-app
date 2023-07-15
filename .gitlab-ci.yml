@@ -76,12 +76,12 @@ push yelb-appserver:
 
 deploy:
   stage: deploy
-  image: k8s-yc:1.24.15
+  image: alpine/k8s:1.24.15
   before_script:
-    - yc config set token $YC_TOKEN
-    - yc config set cloud-id $YC_CLOUD_ID
-    - yc config set folder-id $YC_FOLDER_ID
-    - yc managed-kubernetes cluster get-credentials k8s-cluster --external
+    - ./yc config set token $YC_TOKEN
+    - ./yc config set cloud-id $YC_CLOUD_ID
+    - ./yc config set folder-id $YC_FOLDER_ID
+    - ./yc managed-kubernetes cluster get-credentials k8s-cluster --external
   script:
     - helm upgrade --install $CI_PROJECT_PATH_SLUG .helm
         --set ui.image=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/yelb-ui
