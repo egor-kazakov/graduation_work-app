@@ -27,9 +27,9 @@ spec:
             - name: "RACK_ENV"
               value: "production"
             - name: "YELB_DB_SERVER_ENDPOINT"
-              value: {{ .Values.db.host }}
+              value: "{{ .Values.db.host }}"
             - name: "YELB_DB_SERVER_PORT"
-              value: {{ .Values.db.port }}
+              value: "{{ .Values.db.port }}"
           resources:
             {{- toYaml .Values.appserver.resources | nindent 12 }}
       imagePullSecrets:
