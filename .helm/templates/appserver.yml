@@ -27,7 +27,7 @@ spec:
             - name: "RACK_ENV"
               value: "production"
             - name: "YELB_DB_SERVER_ENDPOINT"
-              values: {{ .Values.db.host }}
+              value: {{ .Values.db.host }}
             - name: "YELB_DB_SERVER_PORT"
               value: {{ .Values.db.port }}
           resources:
