@@ -56,4 +56,4 @@ db:
   port: "6432"
   dbname: "k8s-psql-database"
   user: "dbuser"
-  password: "password"
+  password: "P@$$w0rd"
