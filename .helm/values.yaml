@@ -52,8 +52,8 @@ redis:
 
 # Database (PostgreSQL)
 db:
-  host: yelb-db
-  port: 6432
+  host: "yelb-db"
+  port: "6432"
   dbname: "k8s-psql-database"
   user: "dbuser"
   password: "P@$$w0rd"
