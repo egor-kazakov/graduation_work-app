@@ -57,6 +57,8 @@ spec:
               value: "custom"          
             - name: "YELB_DB_SERVER_ENDPOINT"
               value: {{ .Values.db.host }}
+            - name: YELB_DB_SERVER_PORT
+              value: {{ .Values.db.port }}
             - name: "REDIS_SERVER_ENDPOINT"
               value: redis-server
             - name: "APP_SERVER_HOSTNAME"

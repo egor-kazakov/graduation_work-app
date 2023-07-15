@@ -91,6 +91,7 @@ deploy:
         --set appserver.image=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/yelb-appserver
         --set appserver.imageTag=$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
         --set db.host=c-$DB_HOST.rw.mdb.yandexcloud.net
+        --set db.port=6432
         --namespace $CI_PROJECT_PATH_SLUG
         --create-namespace
         --wait
