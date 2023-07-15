@@ -16,7 +16,7 @@ def restaurantsdbread(restaurant)
     else 
         con = PG.connect  :host => $yelbdbhost,
                         :port => $yelbdbport,
-                        :dbname => 'yelbdatabase',
+                        :dbname => ENV['YELB_DB_NAME'],
                         :user => 'postgres',
                         :password => 'postgres_password'
         con.prepare('statement1', 'SELECT count FROM restaurants WHERE name =  $1')
