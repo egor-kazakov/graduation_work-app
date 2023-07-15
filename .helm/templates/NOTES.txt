@@ -1,0 +1,1 @@
+App available to URL: https://{{ .Values.ui.ingress.host }}
