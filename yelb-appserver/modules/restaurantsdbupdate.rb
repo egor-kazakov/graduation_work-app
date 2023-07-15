@@ -29,7 +29,7 @@ def restaurantsdbupdate(restaurant)
                       :port => $yelbdbport,
                       :dbname => ENV['YELB_DB_NAME'],
                       :user => ENV['YELB_DB_USER'],
-                      :password => 'postgres_password'
+                      :password => ENV['YELB_DB_PASS']
         con.prepare('statement1', 'UPDATE restaurants SET count = count +1 WHERE name = $1')
         res = con.exec_prepared('statement1', [ restaurant ])
         con.close
