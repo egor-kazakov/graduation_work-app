@@ -1,6 +1,6 @@
 ---
 # Registry
-imagePullSecret: cicd-gitlab-registry
+imagePullSecret: gitlab-ci-token
 
 # Frontend
 ui:
