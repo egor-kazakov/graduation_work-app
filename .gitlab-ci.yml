@@ -65,7 +65,7 @@ push yelb-ui:
   script:
     - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/ui:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
   only:
-    - main
+    - master
 
 push yelb-appserver:
   stage: push
@@ -74,7 +74,7 @@ push yelb-appserver:
   script:
     - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/appserver:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
   only:
-    - main
+    - master
 
 deploy:
   stage: deploy
@@ -98,4 +98,4 @@ deploy:
         --atomic
         --debug
   only:
-    - main
+    - master
