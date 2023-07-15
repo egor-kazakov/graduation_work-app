@@ -84,7 +84,7 @@ deploy:
     - ./yc config set folder-id $YC_FOLDER_ID
     - ./yc managed-kubernetes cluster get-credentials k8s-cluster --external
     - export DB_HOST=$(./yc postgresql cluster get k8s-psql-cluster | head -1 | awk '{ print $2 }')
-    - kubectl create secret docker-registry regcred --docker-server=$CI_REGISTRY --docker-username=gitlab-ci-token --docker-password=$CI_BUILD_TOKEN --docker-email=egor.kazakov@sparm.com
+    - kubectl create secret docker-registry gitlab-ci-token --docker-server=$CI_REGISTRY --docker-username=gitlab-ci-token --docker-password=$CI_BUILD_TOKEN --docker-email=egor.kazakov@sparm.com
   script:
     - helm upgrade --install $CI_PROJECT_PATH_SLUG .helm
         --set ui.image=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/yelb-ui
