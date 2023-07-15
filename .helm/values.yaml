@@ -21,8 +21,8 @@ ui:
 appserver:
   replicaCount: 2
 
-  image: c8h11no2/yelb-appserver-6432
-  imageTag: "0.1"
+  image: s053278.gitlab.yandexcloud.net:5050/s053278/graduation_work/yelb-appserver
+  imageTag: "0.5"
 
   resources:
     requests:
