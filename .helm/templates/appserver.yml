@@ -25,19 +25,7 @@ spec:
             - containerPort: 4567
           env:
             - name: "RACK_ENV"
-              value: "production"          
-            - name: "YELB_DB_SERVER_ENDPOINT"
-              value: {{ .Values.db.host }}
-            - name: "YELB_DB_SERVER_PORT"
-              value: {{ .Values.db.port }}
-            - name: "YELB_DB_USER"
-              value: {{ .Values.db.user }}
-            - name: "YELB_DB_PASS"
-              value: {{ .Values.db.password }}
-            - name: "REDIS_SERVER_ENDPOINT"
-              value: redis-server
-            - name: "APP_SERVER_HOSTNAME"
-              value: {{ .Chart.Name }}-appserver
+              value: "production"
           resources:
             {{- toYaml .Values.appserver.resources | nindent 12 }}
       imagePullSecrets:
