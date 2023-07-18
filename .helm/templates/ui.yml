@@ -7,7 +7,7 @@ spec:
   replicas: {{ .Values.ui.replicaCount | default 2 }}
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}-ui
+      app: yelb-ui
   strategy:
     rollingUpdate:
       maxSurge: 10%
@@ -16,11 +16,11 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}-ui
+        app: yelb-ui
     spec:
       containers:
         - image: {{ .Values.ui.image }}:{{ .Values.ui.imageTag }}
-          name: {{ .Chart.Name }}-ui
+          name: yelb-ui
           ports:
             - containerPort: 80
           resources:

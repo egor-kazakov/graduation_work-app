@@ -7,7 +7,7 @@ spec:
   replicas: {{ .Values.appserver.replicaCount | default 2 }}
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}-appserver
+      app: yelb-appserver
   strategy:
     rollingUpdate:
       maxSurge: 10%
@@ -16,11 +16,11 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}-appserver
+        app: yelb-appserver
     spec:
       containers:
         - image: {{ .Values.appserver.image }}:{{ .Values.appserver.imageTag }}
-          name: {{ .Chart.Name }}-appserver
+          name: yelb-appserver
           ports:
             - containerPort: 4567
           env:
