@@ -84,6 +84,9 @@ deploy:
     - ./yc config set folder-id $YC_FOLDER_ID
     - ./yc managed-kubernetes cluster get-credentials k8s-cluster --external
     - export DB_HOST=$(./yc postgresql cluster get k8s-psql-cluster | head -1 | awk '{ print $2 }')
+    - helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx && helm repo update
+    - helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx
+    - kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.9.1/cert-manager.yaml
   script:
     - kubectl get namespace | grep "^$CI_PROJECT_PATH_SLUG " || kubectl create namespace $CI_PROJECT_PATH_SLUG
     - kubectl create secret docker-registry gitlab-ci-token --docker-server $CI_REGISTRY
@@ -102,5 +105,9 @@ deploy:
         --timeout 300s
         --atomic
         --debug
+  after_script:
+    - export BALANCER=$(kubectl get svc| grep ingress-nginx-controller | awk '{ print $4 }')
+    - ./yc dns zone add-records --name "s053278.ru." 
+        --record "yelb 60 A $BALANCER"
   only:
     - master
