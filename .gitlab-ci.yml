@@ -87,6 +87,7 @@ deploy:
     - helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx && helm repo update
     - helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx
     - kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.9.1/cert-manager.yaml
+    - kubectl -n $CI_PROJECT_PATH_SLUG apply -f issuer.yml
   script:
     - kubectl get namespace | grep "^$CI_PROJECT_PATH_SLUG " || kubectl create namespace $CI_PROJECT_PATH_SLUG
     - kubectl create secret docker-registry gitlab-ci-token --docker-server $CI_REGISTRY
