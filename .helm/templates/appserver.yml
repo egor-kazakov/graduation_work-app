@@ -30,6 +30,8 @@ spec:
               value: "{{ .Values.db.host }}"
             - name: "YELB_DB_SERVER_PORT"
               value: "{{ .Values.db.port }}"
+            - name: "YELB_DB_NAME"
+              value: "{{ .Values.db.dbname }}"
             - name: "YELB_DB_USER"
               value: "{{ .Values.db.user }}"
             - name: "YELB_DB_PASS"
