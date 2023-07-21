@@ -27,9 +27,9 @@ def restaurantsdbupdate(restaurant)
     else 
         con = PG.connect  :host => $yelbdbhost,
                       :port => $yelbdbport,
-                      :dbname => ENV['YELB_DB_NAME'],
-                      :user => ENV['YELB_DB_USER'],
-                      :password => ENV['YELB_DB_PASS']
+                      :dbname => $db_name,
+                      :user => $db_user,
+                      :password => $db_pass
         con.prepare('statement1', 'UPDATE restaurants SET count = count +1 WHERE name = $1')
         res = con.exec_prepared('statement1', [ restaurant ])
         con.close
