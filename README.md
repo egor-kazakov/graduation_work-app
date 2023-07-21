@@ -24,9 +24,9 @@
 
 Установите **yc** (YandexCloud CLI) и настройте его по [инструкции](https://cloud.yandex.ru/docs/cli/quickstart#install).
 
-Cкачайте **kubectl** [документация](https://kubernetes.io/docs/tasks/tools/)
+Cкачайте **kubectl** ([документация](https://kubernetes.io/docs/tasks/tools/))
 
-Получитесь к кластеру **Kubernetes
+Получитесь к кластеру **Kubernetes**:
 ```
 yc managed-kubernetes cluster get-credentials k8s-cluster --external
 ```
