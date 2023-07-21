@@ -107,7 +107,7 @@ deploy:
         --debug
   after_script:
     - export BALANCER=$(kubectl get svc| grep ingress-nginx-controller | awk '{ print $4 }')
-    - ./yc dns zone add-records --name "s053278.ru." 
+    - ./yc dns zone add-records --name "s053278.ru."
         --record "yelb 60 A $BALANCER"
   only:
     - master
