@@ -4,7 +4,7 @@ imagePullSecret: gitlab-ci-token
 
 # Frontend
 ui:
-  replicaCount: 2
+  replicaCount: 3
 
   image: mreferre/yelb-ui
   imageTag: "0.7"
@@ -22,7 +22,7 @@ ui:
 
 # Backend
 appserver:
-  replicaCount: 2
+  replicaCount: 1
 
   image: s053278.gitlab.yandexcloud.net:5050/s053278/graduation_work/yelb-appserver
   imageTag: "0.5"
